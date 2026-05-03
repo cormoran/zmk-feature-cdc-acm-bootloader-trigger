@@ -1,5 +1,8 @@
 # ZMK CDC ACM Bootloader Trigger
 
+![ZMK Version](https://img.shields.io/badge/ZMK-master-blue)
+[![Test](https://github.com/cormoran/zmk-feature-cdc-acm-bootloader-trigger/actions/workflows/zmk-module.yml/badge.svg?branch=main)](https://github.com/cormoran/zmk-feature-cdc-acm-bootloader-trigger/actions/workflows/zmk-module.yml)
+
 This feature enables your device to enter bootloader mode when a CDC ACM port is opened at 1200 baud rate. This is compatible with the Arduino bootloader trigger mechanism used by many tools like Arduino IDE, PlatformIO, etc.
 
 ## Installation
