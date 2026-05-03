@@ -1,0 +1,7 @@
+
+/ {
+    bootloader_trigger: bootloader_trigger {
+        compatible = "zmk,cdc-acm-bootloader-trigger";
+        cdc-port = <&board_cdc_acm_uart>;
+    };
+};

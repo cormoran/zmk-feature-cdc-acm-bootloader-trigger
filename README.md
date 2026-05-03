@@ -1,5 +1,8 @@
 # ZMK CDC ACM Bootloader Trigger
 
+![ZMK Version](https://img.shields.io/badge/ZMK-master-blue)
+[![Test](https://github.com/cormoran/zmk-feature-cdc-acm-bootloader-trigger/actions/workflows/zmk-module.yml/badge.svg?branch=main)](https://github.com/cormoran/zmk-feature-cdc-acm-bootloader-trigger/actions/workflows/zmk-module.yml)
+
 This feature enables your device to enter bootloader mode when a CDC ACM port is opened at 1200 baud rate. This is compatible with the Arduino bootloader trigger mechanism used by many tools like Arduino IDE, PlatformIO, etc.
 
 ## Installation
@@ -102,6 +105,7 @@ Or using the ZMK USB logging UART port:
 ### 3. How to use
 
 Once configured, your device will automatically enter bootloader mode when a compatible tool attempts to flash firmware by:
+
 1. Opening the configured CDC ACM port at 1200 baud
 2. Closing the port
 3. The device will reset into bootloader mode after the configured delay
@@ -214,8 +218,23 @@ CONFIG_ZMK_CDC_ACM_BOOTLOADER_TRIGGER_POLL_MS=100
 ### 3. 使用方法
 
 設定が完了すると、互換性のあるツールがファームウェアをフラッシュしようとしたときに、デバイスは自動的にブートローダーモードに入ります：
+
 1. 設定されたCDC ACMポートが1200ボーレートで開かれる
 2. ポートが閉じられる
 3. 設定された遅延時間後にデバイスがブートローダーモードでリセットされる
 
 これはArduino IDE、PlatformIO、QMK Toolboxなど、このトリガー機構をサポートするツールと互換性があります。
+
+## Test
+
+```
+mkdir west-workspace
+cd west-workspace # this directory becomes west workspace root (topdir)
+git clone <this repository>
+# rm -r .west # if exists to reset workspace
+west init -l . --mf west/west-test-workspace.yml
+# Or west init -l west --mf west-test-isolated.yml
+west update --narrow
+west zephyr-export
+west zmk-build ./tests/zmk-config -q
+```
