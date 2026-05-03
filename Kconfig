@@ -22,8 +22,15 @@ config ZMK_CDC_ACM_BOOTLOADER_TRIGGER_POLL_MS
     int "Milliseconds between polling CDC ACM state"
     default 100
     help
-      Interval in milliseconds to poll the CDC ACM state to detect 
+      Interval in milliseconds to poll the CDC ACM state to detect
       when the port is opened at 1200 baud and then closed.
       Polling only occurs when USB is connected.
 
 endif # ZMK_CDC_ACM_BOOTLOADER_TRIGGER
+
+config ZMK_CDC_ACM_BOOTLOADER_TRIGGER_USE_UF2_RESET_RUNNER
+    bool "Enable custom UF2 flasher (uf2-reset) which triggers reset before flashing"
+    default y
+    help
+      When enabled, the custom UF2 flasher (uf2-reset) is set as default
+      This is necessary for some bootloaders that require a reset to enter bootloader mode before flashing.

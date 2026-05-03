@@ -3,6 +3,12 @@
 ![ZMK Version](https://img.shields.io/badge/ZMK-master-blue)
 [![Test](https://github.com/cormoran/zmk-feature-cdc-acm-bootloader-trigger/actions/workflows/zmk-module.yml/badge.svg?branch=main)](https://github.com/cormoran/zmk-feature-cdc-acm-bootloader-trigger/actions/workflows/zmk-module.yml)
 
+cormoran's fork of [sekigon-gonnoc/zmk-feature-cdc-acm-bootloader-trigger](https://github.com/sekigon-gonnoc/zmk-feature-cdc-acm-bootloader-trigger).
+
+This fork provides UF2 writer which supports touch trigger & flush from WSL environment.
+
+---
+
 This feature enables your device to enter bootloader mode when a CDC ACM port is opened at 1200 baud rate. This is compatible with the Arduino bootloader trigger mechanism used by many tools like Arduino IDE, PlatformIO, etc.
 
 ## Installation
@@ -16,6 +22,8 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: sekigon-gonnoc
       url-base: https://github.com/sekigon-gonnoc
+    - name: cormoran
+      url-base: https://github.com/cormoran
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -23,7 +31,7 @@ manifest:
       revision: main
       import: app/west.yml
     - name: zmk-feature-cdc-acm-bootloader-trigger
-      remote: sekigon-gonnoc
+      remote: cormoran
       # To pin this module to a specific release, set revision, e.g. v0.2
       revision: main
   self:
@@ -111,6 +119,22 @@ Once configured, your device will automatically enter bootloader mode when a com
 3. The device will reset into bootloader mode after the configured delay
 
 This is compatible with tools like Arduino IDE, PlatformIO, QMK Toolbox, and others that support this trigger mechanism.
+
+## UF2-reset Flash Writer
+
+This module provides `uf2-reset` flash writer.
+By default, it lists and prompts COM port when flash and triggers touch-reset against the port.
+The port can be specified with `--touch-reset-port` as well.
+
+```bash
+# After build
+$ west flash -r uf2-reset [--touch-reset-port COM4] --skip-build
+```
+
+### WSL support
+
+`uf2-reset` supports WSL environment.
+The code is highly based on https://github.com/kot149/zmk-workspace
 
 ---
 
@@ -224,6 +248,26 @@ CONFIG_ZMK_CDC_ACM_BOOTLOADER_TRIGGER_POLL_MS=100
 3. 設定された遅延時間後にデバイスがブートローダーモードでリセットされる
 
 これはArduino IDE、PlatformIO、QMK Toolboxなど、このトリガー機構をサポートするツールと互換性があります。
+
+## west コマンドで書き込む
+
+自動リセットに対応した書き込みツール `uf2-reset` が同梱されています。
+
+`./build` ディレクトリでビルドが成功した状態で `west flash -r uf2-reset --skip-build` を実行します。
+COM ポート一覧が表示されるので番号 1-N でリセット対象を選択してください。
+自動的にデバイスがブートローダーモードに入って書き込みが完了します。
+
+`--touch-reset-port` でリセット対象のポートを指定することもできます。
+
+```bash
+$ west flash -r uf2-reset [--touch-reset-port COM4] --skip-build
+```
+
+### WSL 対応
+
+`uf2-reset` は WSL 環境から実行することもできます。
+
+WSL 対応のプログラムは https://github.com/kot149/zmk-workspace をもとに実装されています。
 
 ## Test
 
