@@ -1,5 +1,8 @@
 # ZMK CDC ACM Bootloader Trigger
 
+![ZMK Version](https://img.shields.io/badge/ZMK-master-blue)
+[![Test](https://github.com/cormoran/zmk-feature-cdc-acm-bootloader-trigger/actions/workflows/zmk-module.yml/badge.svg?branch=main)](https://github.com/cormoran/zmk-feature-cdc-acm-bootloader-trigger/actions/workflows/zmk-module.yml)
+
 cormoran's fork of [sekigon-gonnoc/zmk-feature-cdc-acm-bootloader-trigger](https://github.com/sekigon-gonnoc/zmk-feature-cdc-acm-bootloader-trigger).
 
 This fork provides UF2 writer which supports touch trigger & flush from WSL environment.
