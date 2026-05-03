@@ -1,0 +1,5 @@
+include:
+  - artifact: cdc_acm_boothoader_trigger_test
+    board: xiao_ble//zmk
+    shield: tester_xiao
+    snippet: zmk-usb-logging
